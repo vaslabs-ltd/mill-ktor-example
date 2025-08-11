@@ -1,0 +1,32 @@
+//| mill-version: 1.0.3
+package build
+
+import mill.*
+import kotlinlib.*
+import mill.javalib.Assembly.*
+
+object `package` extends KotlinMavenModule {
+
+  def kotlinVersion = "2.1.10"
+
+  def bomMvnDeps = Seq(
+    mvn"io.ktor:ktor-bom:3.2.3"
+  )
+
+  def mvnDeps = Seq(
+    mvn"org.openfolder:kotlin-asyncapi-ktor:3.1.1",
+    mvn"io.ktor:ktor-server-core-jvm",
+    mvn"io.ktor:ktor-server-netty",
+    mvn"ch.qos.logback:logback-classic:1.5.3",
+    mvn"io.ktor:ktor-server-core",
+    mvn"io.ktor:ktor-server-config-yaml",
+  )
+
+  object test extends KotlinMavenTests with TestModule.Junit4 {
+
+    def mvnDeps = super.mvnDeps() ++ Seq(
+      mvn"io.ktor:ktor-server-test-host",
+      mvn"org.jetbrains.kotlin:kotlin-test-junit:${this.kotlinVersion()}"
+    )
+  }
+}
