@@ -7,7 +7,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    name: Check format and test
+    name: Test
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
